@@ -1,0 +1,74 @@
+body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#nav-pages {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+#content {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+#view:not(:empty) {
+    border: 1px solid #E5E7EB;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+#view .view-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: #111827;
+}
+#view .view-desc {
+    margin: 0 0 1.25rem;
+    color: #6B7280;
+    font-size: 0.9rem;
+}
+#view .view-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+}
+#view .view-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem;
+    border: 1px solid #F3F4F6;
+    border-radius: 0.75rem;
+    background: #FAFAFA;
+    font-size: 0.875rem;
+}
+#view .view-card strong { color: #111827; }
+#view .view-card span   { color: #6B7280; }
+#view .tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: #E5E7EB;
+    color: #374151;
+    align-self: flex-start;
+}
+#view .tag.oferta    { background: #FEF3C7; color: #92400E; }
+#view .tag.destacado { background: #EDE9FE; color: #5B21B6; }
+#view .tag.vendido   { background: #FEE2E2; color: #991B1B; }
+#view .tag.marca     { background: #DBEAFE; color: #1E40AF; }

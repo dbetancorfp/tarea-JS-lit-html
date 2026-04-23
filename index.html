@@ -4,10 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea-JS-lit-html</title>
+
+    <!--
+        importmap: permite usar nombres de paquete (ej. 'lit-html') en los import de los módulos ES,
+        resolviendo la URL real en tiempo de carga. Sin esto habría que escribir la URL completa
+        en cada fichero. No requiere ninguna herramienta de build — funciona nativamente en el navegador.
+    -->
+    <script type="importmap">
+    {
+        "imports": {
+            "lit-html": "https://esm.sh/lit-html@3",
+            "lit-html/directives/repeat.js": "https://esm.sh/lit-html@3/directives/repeat.js",
+            "lit-html/directives/unsafe-html.js": "https://esm.sh/lit-html@3/directives/unsafe-html.js"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
     <h1>Tarea-JS-lit-html</h1>
 
-<script type="module" src="./main.js"></script>
+    <!--
+        <app-root>: componente orquestador que gestiona toda la navegación.
+        Contiene en su light DOM (no Shadow DOM) los elementos hijos que controla,
+        permitiendo que los acceda con querySelector desde connectedCallback.
+    -->
+    <app-root>
+
+        <!--
+            <task-breadcrumb>: muestra la ruta de navegación actual.
+            No tiene contenido inicial; app-root le asigna .items cuando navega.
+            Property binding: app-root.#breadcrumb.items = [...] (no atributo HTML).
+        -->
+        <task-breadcrumb></task-breadcrumb>
+
+        <!--
+            <nav>: contenedor donde app-root renderiza los botones de páginas principales
+            (Inicio, Categorías, Marcas) mediante lit-html render() + navTemplate.
+        -->
+        <nav id="nav-pages"></nav>
+
+        <!--
+            <div id="content">: contenedor donde app-root renderiza los botones de secciones
+            de la página activa mediante lit-html render() + contentTemplate con repeat().
+        -->
+        <div id="content"></div>
+
+        <!--
+            <div id="view">: área donde se inyecta el fragmento HTML de la sección seleccionada,
+            cargado vía fetch desde /views/*.html e insertado con unsafeHTML de lit-html.
+        -->
+        <div id="view"></div>
+
+        <!--
+            <task-pagination>: componente de paginación.
+            - total-pages: número total de páginas (atributo HTML, tipo string → parseado internamente).
+            - current-page: página activa inicial.
+            Emite el CustomEvent 'page-change' que app-root escucha para navegar.
+        -->
+        <task-pagination total-pages="3" current-page="1"></task-pagination>
+
+    </app-root>
+
+    <!--
+        type="module": activa ES Modules en el navegador.
+        - Los imports son relativos y se resuelven con el importmap del <head>.
+        - Se ejecuta en modo strict por defecto.
+        - Es diferido automáticamente (equivalente a defer): no bloquea el parsing del HTML.
+    -->
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
